@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Hugo on 弦鱼</title>
+        <link>http://localhost:1313/tags/hugo/</link>
+        <description>Recent content in Hugo on 弦鱼</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Wed, 08 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>用 Hugo 搭建博客的体验</title>
+            <link>http://localhost:1313/posts/hugo-experience/</link>
+            <pubDate>Wed, 08 Jul 2026 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/posts/hugo-experience/</guid>
+            <description>&lt;p&gt;Hugo 是一个用 Go 编写的静态站点生成器，速度极快。配合 Stack 主题，可以快速搭建出美观的个人博客。&lt;/p&gt;&#xA;&lt;p&gt;搭建过程非常简单：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;安装 Hugo&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;hugo new site&lt;/code&gt; 创建新站点&lt;/li&gt;&#xA;&lt;li&gt;添加主题&lt;/li&gt;&#xA;&lt;li&gt;写文章&lt;/li&gt;&#xA;&lt;li&gt;部署到 Vercel&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;整个过程不到十分钟就能完成。&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

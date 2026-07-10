@@ -1,0 +1,57 @@
+baseURL = 'https://example.org/'
+locale = 'zh-cn'
+title = '弦鱼'
+theme = 'stack'
+
+[params]
+  mainSections = ['posts']
+
+  [params.footer]
+    since = 2026
+    customText = ''
+
+  [params.sidebar]
+    compact = false
+    avatar = 'img/avatar.jpg'
+    subtitle = '记录一些想法'
+
+    [[params.sidebar.social]]
+      name = 'GitHub'
+      url = 'https://github.com/lueqing'
+
+  [params.article]
+    toc = true
+    readingTime = true
+    license.enabled = true
+    license.default = '本作品采用 CC BY-NC-SA 4.0 许可协议'
+
+    [params.article.list]
+      showTags = true
+
+  [params.widgets]
+    homepage = [
+      { type = 'search' },
+      { type = 'archives' },
+      { type = 'categories' },
+      { type = 'tag-cloud' }
+    ]
+    page = [
+      { type = 'search' },
+      { type = 'archives' },
+      { type = 'tag-cloud' }
+    ]
+
+  [params.colorScheme]
+    toggle = true
+    default = 'auto'
+
+  [params.imageProcessing]
+    content.enabled = true
+    thumbnail.enabled = true
+
+  [params.comments]
+    enabled = false
+
+  [params.dateFormat]
+    published = '2006-01-02'
+    lastUpdated = '2006-01-02'
