@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="教程 TeXLive 安装教程 https://mirrors.tuna.tsinghua.edu.cn/CTAN/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf\n教程-30分钟速通LaTeX】LaTeX排版零基础速成教程，数学建模美赛/科研论文必看视频！！（附赠美赛LaTex模板）\n国赛模板\nlatexstudio/CUMCMThesis: 全国大学生数学建模竞赛LaTeX论文模板 已经适配到 2023 年格式\n之后找到了更新的模板\n经过与**全国大学生数学建模竞赛论文格式规范（2023年修订稿）比对，这个挺符合的**\n使用模板时经常有很多编译警告，没啥鸟影响\n预计耗时 大概只需要一个下午就可以了解普通LaTeX的使用方法(看那个视频)，以后就可以查公式和查模板来写了。\n大概要半个下午来了解如何在VSCode使用LaTeX\n看下来的感受 引用很方便，知网上可以直接导出BibTex里面的文本，对以后科研来说很方便（但是数模一般不引用 刘汉黄豆）\n感觉比word规范\n熟练使用还需要时间\n关于数学公式 在线LaTeX公式编辑器-编辑器我觉得这个应该也是挺好用的。\n关于表格 https://www.latex-tables.com/\n附录的使用 直接看模板的example.tex就可以了解，代码插入的方式也在里面\n在overleaf中，导入cumcmthesis.cls就可以使用这个数模模板 https://cn.overleaf.com/9434441518nnfprqbnkjzb#92c7bc这是我跟练后的内容\n经过检验,overleaf和vscode中的效果一样\n如果想在VSCode使用LaTeX 安装TeX live\n在VSCode中安装LaTeX Workshop 插件\n配置插件() 在VSCode的settings.json里面\n这三种recipes配方，在看完教程视频后就可以知道这有关引用的内容\n&#34;latex-workshop.latex.recipes&#34;: [ { &#34;name&#34;: &#34;xelatex&#34;, &#34;tools&#34;: [&#34;xelatex&#34;], // 简单文档，快速编译 }, { &#34;name&#34;: &#34;xe-&gt;xe-&gt;xe&#34;, &#34;tools&#34;: [&#34;xelatex&#34;, &#34;xelatex&#34;, &#34;xelatex&#34;], // 含有目录、交叉引用，需要多次编译 }, { &#34;name&#34;: &#34;xe-&gt;bib-&gt;xe-&gt;xe&#34;, &#34;tools&#34;: [&#34;xelatex&#34;, &#34;bibtex&#34;, &#34;xelatex&#34;, &#34;xelatex&#34;], // 包含参考文献的完整编译链 } ], // 定义工具链 &#34;latex-workshop.latex.tools&#34;: [ { &#34;name&#34;: &#34;xelatex&#34;, &#34;command&#34;: &#34;xelatex&#34;, &#34;args&#34;: [ &#34;-synctex=1&#34;, // 启用反向搜索 &#34;-interaction=nonstopmode&#34;, // 非交互模式，报错不暂停 &#34;-file-line-error&#34;, // 显示错误行号 &#34;%DOCFILE%&#34; // 当前文件名（不含扩展名） ] }, { &#34;name&#34;: &#34;bibtex&#34;, &#34;command&#34;: &#34;bibtex&#34;, &#34;args&#34;: [&#34;%DOCFILE%&#34;] } ], // 默认选择第一个 recipe（xelatex） &#34;latex-workshop.latex.recipe.default&#34;: &#34;first&#34;, // --------------------- 辅助功能 --------------------- // 保存时自动编译 &#34;latex-workshop.latex.autoBuild.run&#34;: &#34;onSave&#34;, // 编译后自动清理辅助文件（可选）不建议，我开了这个之后引用出错 //&#34;latex-workshop.latex.clean.fileTypes&#34;: [ // &#34;*.aux&#34;, &#34;*.bbl&#34;, &#34;*.blg&#34;, &#34;*.idx&#34;, &#34;*.ind&#34;, // &#34;*.lof&#34;, &#34;*.lot&#34;, &#34;*.out&#34;, &#34;*.toc&#34;, &#34;*.acn&#34;, /// &#34;*.acr&#34;, &#34;*.alg&#34;, &#34;*.glg&#34;, &#34;*.glo&#34;, &#34;*.gls&#34;, // &#34;*.ist&#34;, &#34;*.fls&#34;, &#34;*.log&#34;, &#34;*.fdb_latexmk&#34;, // &#34;*.synctex.gz&#34; //], //&#34;latex-workshop.latex.autoClean.run&#34;: &#34;onBuilt&#34;, // 启用反向搜索（PDF 点击跳转到代码） &#34;latex-workshop.viewer.pdf.internal.port&#34;: 0, // --------------------- 显示配置 --------------------- // 使用 VSCode 内置 PDF 查看器 &#34;latex-workshop.view.pdf.viewer&#34;: &#34;tab&#34;, // 显示编译日志 &#34;latex-workshop.message.showInfo&#34;: false, &#34;latex-workshop.message.warning.show&#34;: true, &#34;latex-workshop.message.error.show&#34;: true VSCode还有个LaTeX-utilitiess插件可以方便地导入图片，但是大小宽度还是要自己设置\n">
+<title>数模LaTeX的安装</title>
+
+
+<link rel="canonical" href="http://localhost:1313/posts/%E6%95%B0%E6%A8%A1latex%E7%9A%84%E5%AE%89%E8%A3%85/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="数模LaTeX的安装">
+<meta property='og:description' content="教程 TeXLive 安装教程 https://mirrors.tuna.tsinghua.edu.cn/CTAN/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf\n教程-30分钟速通LaTeX】LaTeX排版零基础速成教程，数学建模美赛/科研论文必看视频！！（附赠美赛LaTex模板）\n国赛模板\nlatexstudio/CUMCMThesis: 全国大学生数学建模竞赛LaTeX论文模板 已经适配到 2023 年格式\n之后找到了更新的模板\n经过与**全国大学生数学建模竞赛论文格式规范（2023年修订稿）比对，这个挺符合的**\n使用模板时经常有很多编译警告，没啥鸟影响\n预计耗时 大概只需要一个下午就可以了解普通LaTeX的使用方法(看那个视频)，以后就可以查公式和查模板来写了。\n大概要半个下午来了解如何在VSCode使用LaTeX\n看下来的感受 引用很方便，知网上可以直接导出BibTex里面的文本，对以后科研来说很方便（但是数模一般不引用 刘汉黄豆）\n感觉比word规范\n熟练使用还需要时间\n关于数学公式 在线LaTeX公式编辑器-编辑器我觉得这个应该也是挺好用的。\n关于表格 https://www.latex-tables.com/\n附录的使用 直接看模板的example.tex就可以了解，代码插入的方式也在里面\n在overleaf中，导入cumcmthesis.cls就可以使用这个数模模板 https://cn.overleaf.com/9434441518nnfprqbnkjzb#92c7bc这是我跟练后的内容\n经过检验,overleaf和vscode中的效果一样\n如果想在VSCode使用LaTeX 安装TeX live\n在VSCode中安装LaTeX Workshop 插件\n配置插件() 在VSCode的settings.json里面\n这三种recipes配方，在看完教程视频后就可以知道这有关引用的内容\n&#34;latex-workshop.latex.recipes&#34;: [ { &#34;name&#34;: &#34;xelatex&#34;, &#34;tools&#34;: [&#34;xelatex&#34;], // 简单文档，快速编译 }, { &#34;name&#34;: &#34;xe-&gt;xe-&gt;xe&#34;, &#34;tools&#34;: [&#34;xelatex&#34;, &#34;xelatex&#34;, &#34;xelatex&#34;], // 含有目录、交叉引用，需要多次编译 }, { &#34;name&#34;: &#34;xe-&gt;bib-&gt;xe-&gt;xe&#34;, &#34;tools&#34;: [&#34;xelatex&#34;, &#34;bibtex&#34;, &#34;xelatex&#34;, &#34;xelatex&#34;], // 包含参考文献的完整编译链 } ], // 定义工具链 &#34;latex-workshop.latex.tools&#34;: [ { &#34;name&#34;: &#34;xelatex&#34;, &#34;command&#34;: &#34;xelatex&#34;, &#34;args&#34;: [ &#34;-synctex=1&#34;, // 启用反向搜索 &#34;-interaction=nonstopmode&#34;, // 非交互模式，报错不暂停 &#34;-file-line-error&#34;, // 显示错误行号 &#34;%DOCFILE%&#34; // 当前文件名（不含扩展名） ] }, { &#34;name&#34;: &#34;bibtex&#34;, &#34;command&#34;: &#34;bibtex&#34;, &#34;args&#34;: [&#34;%DOCFILE%&#34;] } ], // 默认选择第一个 recipe（xelatex） &#34;latex-workshop.latex.recipe.default&#34;: &#34;first&#34;, // --------------------- 辅助功能 --------------------- // 保存时自动编译 &#34;latex-workshop.latex.autoBuild.run&#34;: &#34;onSave&#34;, // 编译后自动清理辅助文件（可选）不建议，我开了这个之后引用出错 //&#34;latex-workshop.latex.clean.fileTypes&#34;: [ // &#34;*.aux&#34;, &#34;*.bbl&#34;, &#34;*.blg&#34;, &#34;*.idx&#34;, &#34;*.ind&#34;, // &#34;*.lof&#34;, &#34;*.lot&#34;, &#34;*.out&#34;, &#34;*.toc&#34;, &#34;*.acn&#34;, /// &#34;*.acr&#34;, &#34;*.alg&#34;, &#34;*.glg&#34;, &#34;*.glo&#34;, &#34;*.gls&#34;, // &#34;*.ist&#34;, &#34;*.fls&#34;, &#34;*.log&#34;, &#34;*.fdb_latexmk&#34;, // &#34;*.synctex.gz&#34; //], //&#34;latex-workshop.latex.autoClean.run&#34;: &#34;onBuilt&#34;, // 启用反向搜索（PDF 点击跳转到代码） &#34;latex-workshop.viewer.pdf.internal.port&#34;: 0, // --------------------- 显示配置 --------------------- // 使用 VSCode 内置 PDF 查看器 &#34;latex-workshop.view.pdf.viewer&#34;: &#34;tab&#34;, // 显示编译日志 &#34;latex-workshop.message.showInfo&#34;: false, &#34;latex-workshop.message.warning.show&#34;: true, &#34;latex-workshop.message.error.show&#34;: true VSCode还有个LaTeX-utilitiess插件可以方便地导入图片，但是大小宽度还是要自己设置\n">
+<meta property='og:url' content='http://localhost:1313/posts/%E6%95%B0%E6%A8%A1latex%E7%9A%84%E5%AE%89%E8%A3%85/'>
+<meta property='og:site_name' content='弦鱼'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='数模' /><meta property='article:published_time' content='2026-07-14T14:48:03&#43;08:00'/><meta property='article:modified_time' content='2026-07-14T14:48:03&#43;08:00'/>
+<meta name="twitter:title" content="数模LaTeX的安装">
+<meta name="twitter:description" content="教程 TeXLive 安装教程 https://mirrors.tuna.tsinghua.edu.cn/CTAN/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf\n教程-30分钟速通LaTeX】LaTeX排版零基础速成教程，数学建模美赛/科研论文必看视频！！（附赠美赛LaTex模板）\n国赛模板\nlatexstudio/CUMCMThesis: 全国大学生数学建模竞赛LaTeX论文模板 已经适配到 2023 年格式\n之后找到了更新的模板\n经过与**全国大学生数学建模竞赛论文格式规范（2023年修订稿）比对，这个挺符合的**\n使用模板时经常有很多编译警告，没啥鸟影响\n预计耗时 大概只需要一个下午就可以了解普通LaTeX的使用方法(看那个视频)，以后就可以查公式和查模板来写了。\n大概要半个下午来了解如何在VSCode使用LaTeX\n看下来的感受 引用很方便，知网上可以直接导出BibTex里面的文本，对以后科研来说很方便（但是数模一般不引用 刘汉黄豆）\n感觉比word规范\n熟练使用还需要时间\n关于数学公式 在线LaTeX公式编辑器-编辑器我觉得这个应该也是挺好用的。\n关于表格 https://www.latex-tables.com/\n附录的使用 直接看模板的example.tex就可以了解，代码插入的方式也在里面\n在overleaf中，导入cumcmthesis.cls就可以使用这个数模模板 https://cn.overleaf.com/9434441518nnfprqbnkjzb#92c7bc这是我跟练后的内容\n经过检验,overleaf和vscode中的效果一样\n如果想在VSCode使用LaTeX 安装TeX live\n在VSCode中安装LaTeX Workshop 插件\n配置插件() 在VSCode的settings.json里面\n这三种recipes配方，在看完教程视频后就可以知道这有关引用的内容\n&#34;latex-workshop.latex.recipes&#34;: [ { &#34;name&#34;: &#34;xelatex&#34;, &#34;tools&#34;: [&#34;xelatex&#34;], // 简单文档，快速编译 }, { &#34;name&#34;: &#34;xe-&gt;xe-&gt;xe&#34;, &#34;tools&#34;: [&#34;xelatex&#34;, &#34;xelatex&#34;, &#34;xelatex&#34;], // 含有目录、交叉引用，需要多次编译 }, { &#34;name&#34;: &#34;xe-&gt;bib-&gt;xe-&gt;xe&#34;, &#34;tools&#34;: [&#34;xelatex&#34;, &#34;bibtex&#34;, &#34;xelatex&#34;, &#34;xelatex&#34;], // 包含参考文献的完整编译链 } ], // 定义工具链 &#34;latex-workshop.latex.tools&#34;: [ { &#34;name&#34;: &#34;xelatex&#34;, &#34;command&#34;: &#34;xelatex&#34;, &#34;args&#34;: [ &#34;-synctex=1&#34;, // 启用反向搜索 &#34;-interaction=nonstopmode&#34;, // 非交互模式，报错不暂停 &#34;-file-line-error&#34;, // 显示错误行号 &#34;%DOCFILE%&#34; // 当前文件名（不含扩展名） ] }, { &#34;name&#34;: &#34;bibtex&#34;, &#34;command&#34;: &#34;bibtex&#34;, &#34;args&#34;: [&#34;%DOCFILE%&#34;] } ], // 默认选择第一个 recipe（xelatex） &#34;latex-workshop.latex.recipe.default&#34;: &#34;first&#34;, // --------------------- 辅助功能 --------------------- // 保存时自动编译 &#34;latex-workshop.latex.autoBuild.run&#34;: &#34;onSave&#34;, // 编译后自动清理辅助文件（可选）不建议，我开了这个之后引用出错 //&#34;latex-workshop.latex.clean.fileTypes&#34;: [ // &#34;*.aux&#34;, &#34;*.bbl&#34;, &#34;*.blg&#34;, &#34;*.idx&#34;, &#34;*.ind&#34;, // &#34;*.lof&#34;, &#34;*.lot&#34;, &#34;*.out&#34;, &#34;*.toc&#34;, &#34;*.acn&#34;, /// &#34;*.acr&#34;, &#34;*.alg&#34;, &#34;*.glg&#34;, &#34;*.glo&#34;, &#34;*.gls&#34;, // &#34;*.ist&#34;, &#34;*.fls&#34;, &#34;*.log&#34;, &#34;*.fdb_latexmk&#34;, // &#34;*.synctex.gz&#34; //], //&#34;latex-workshop.latex.autoClean.run&#34;: &#34;onBuilt&#34;, // 启用反向搜索（PDF 点击跳转到代码） &#34;latex-workshop.viewer.pdf.internal.port&#34;: 0, // --------------------- 显示配置 --------------------- // 使用 VSCode 内置 PDF 查看器 &#34;latex-workshop.view.pdf.viewer&#34;: &#34;tab&#34;, // 显示编译日志 &#34;latex-workshop.message.showInfo&#34;: false, &#34;latex-workshop.message.warning.show&#34;: true, &#34;latex-workshop.message.error.show&#34;: true VSCode还有个LaTeX-utilitiess插件可以方便地导入图片，但是大小宽度还是要自己设置\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.jpg" 
+                        width="940"
+                        height="940"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">弦鱼</a></h1>
+            <h2 class="site-description">记录一些想法</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/page/search/" class="search-form widget" >
+        <p>
+            <label>Search</label>
+            <input name="keyword" required placeholder="Type something..." />
+        
+            <button title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">
+            <a href="/page/archives/">
+                Archives
+            </a>
+        </h2>
+
+        
+        
+        
+        <div class="widget-archive--list">
+            <div class="archives-year">
+                    <a href="/page/archives/#2026">
+                        
+                            <span class="year">2026</span>
+                            <span class="count">4</span>
+                        
+                    </a> 
+                </div>
+            
+        </div>
+    </section>
+            
+        
+            
+                
+<section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">
+        
+            <a href="/tags/">
+                Tags
+            </a>
+        
+    </h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/tags/hugo/">
+                Hugo
+            </a>
+        
+            <a href="/tags/markdown/">
+                Markdown
+            </a>
+        
+            <a href="/tags/%E5%86%99%E4%BD%9C/">
+                写作
+            </a>
+        
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/">
+                博客
+            </a>
+        
+            <a href="/tags/%E6%95%B0%E6%A8%A1/">
+                数模
+            </a>
+        
+    </div>
+</section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%95%B0%E6%A8%A1/" style="background-color: hsl(201, 60%, 84%); color: hsl(201, 60%, 15%);">
+                数模
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E6%95%B0%E6%A8%A1latex%E7%9A%84%E5%AE%89%E8%A3%85/">数模LaTeX的安装</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-07-14T14:48:03&#43;08:00'>2026-07-14</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        1 minute read
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="教程">教程
+</h2><h3 id="texlive-安装教程">TeXLive 安装教程
+</h3><p><a class="link" href="https://mirrors.tuna.tsinghua.edu.cn/CTAN/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf"  target="_blank" rel="noopener"
+    >https://mirrors.tuna.tsinghua.edu.cn/CTAN/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf</a></p>
+<p><strong><a class="link" href="https://www.bilibili.com/video/BV1Mc411S75c"  target="_blank" rel="noopener"
+    >教程-30分钟速通LaTeX】LaTeX排版零基础速成教程，数学建模美赛/科研论文必看视频！！（附赠美赛LaTex模板）</a></strong></p>
+<p>国赛模板</p>
+<p><a class="link" href="https://github.com/latexstudio/CUMCMThesis"  target="_blank" rel="noopener"
+    >latexstudio/CUMCMThesis: 全国大学生数学建模竞赛LaTeX论文模板 已经适配到 2023 年格式</a></p>
+<p><a class="link" href="https://github.com/Sustainable-Enjoyment/CUMCM-LaTeX-Template"  target="_blank" rel="noopener"
+    >之后找到了更新的模板</a></p>
+<p>经过与<a class="link" href="https://www.mcm.edu.cn/html_cn/node/b5ab480af29da69a4806e51e714b3de4.html"  target="_blank" rel="noopener"
+    >**全国大学生数学建模竞赛论文格式规范（2023年修订稿）</a>比对，这个挺符合的**</p>
+<p>使用模板时经常有很多编译警告，没啥鸟影响</p>
+<h2 id="预计耗时">预计耗时
+</h2><p>大概只需要一个下午就可以了解普通LaTeX的使用方法(看那个视频)，以后就可以查公式和查模板来写了。</p>
+<p>大概要半个下午来了解如何在VSCode使用LaTeX</p>
+<h2 id="看下来的感受">看下来的感受
+</h2><p>引用很方便，知网上可以直接导出BibTex里面的文本，对以后科研来说很方便（但是数模一般不引用 刘汉黄豆）</p>
+<p>感觉比word规范</p>
+<p>熟练使用还需要时间</p>
+<h2 id="关于数学公式">关于数学公式
+</h2><p><a class="link" href="https://www.latexlive.com/"  target="_blank" rel="noopener"
+    >在线LaTeX公式编辑器-编辑器</a>我觉得这个应该也是挺好用的。</p>
+<h1 id="关于表格">关于表格
+</h1><p><a class="link" href="https://www.latex-tables.com/"  target="_blank" rel="noopener"
+    >https://www.latex-tables.com/</a></p>
+<h2 id="附录的使用">附录的使用
+</h2><p>直接看模板的example.tex就可以了解，代码插入的方式也在里面</p>
+<h2 id="在overleaf中导入cumcmthesiscls就可以使用这个数模模板">在overleaf中，导入cumcmthesis.cls就可以使用这个数模模板
+</h2><p><a class="link" href="https://cn.overleaf.com/9434441518nnfprqbnkjzb#92c7bc%E8%BF%99%E6%98%AF%E6%88%91%E8%B7%9F%E7%BB%83%E5%90%8E%E7%9A%84%E5%86%85%E5%AE%B9"  target="_blank" rel="noopener"
+    >https://cn.overleaf.com/9434441518nnfprqbnkjzb#92c7bc这是我跟练后的内容</a></p>
+<p>经过检验,overleaf和vscode中的效果一样</p>
+<h2 id="如果想在vscode使用latex">如果想在VSCode使用LaTeX
+</h2><p><a class="link" href="https://tug.org/texlive/windows.html"  target="_blank" rel="noopener"
+    >安装TeX live</a></p>
+<p>在VSCode中安装<strong>LaTeX Workshop</strong> 插件</p>
+<p>配置插件() 在VSCode的settings.json里面</p>
+<p>这三种recipes配方，在看完教程视频后就可以知道这有关引用的内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.latex.recipes&#34;</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;xelatex&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;tools&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;xelatex&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 简单文档，快速编译
+</span></span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;xe-&gt;xe-&gt;xe&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;tools&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;xelatex&#34;</span>, <span style="color:#e6db74">&#34;xelatex&#34;</span>, <span style="color:#e6db74">&#34;xelatex&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 含有目录、交叉引用，需要多次编译
+</span></span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;xe-&gt;bib-&gt;xe-&gt;xe&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;tools&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;xelatex&#34;</span>, <span style="color:#e6db74">&#34;bibtex&#34;</span>, <span style="color:#e6db74">&#34;xelatex&#34;</span>, <span style="color:#e6db74">&#34;xelatex&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 包含参考文献的完整编译链
+</span></span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 定义工具链
+</span></span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.latex.tools&#34;</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;xelatex&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;xelatex&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;args&#34;</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;-synctex=1&#34;</span>,          <span style="color:#75715e">// 启用反向搜索
+</span></span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;-interaction=nonstopmode&#34;</span>, <span style="color:#75715e">// 非交互模式，报错不暂停
+</span></span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;-file-line-error&#34;</span>,    <span style="color:#75715e">// 显示错误行号
+</span></span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;%DOCFILE%&#34;</span>            <span style="color:#75715e">// 当前文件名（不含扩展名）
+</span></span></span><span style="display:flex;"><span>            ]
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bibtex&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bibtex&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;args&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;%DOCFILE%&#34;</span>]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 默认选择第一个 recipe（xelatex）
+</span></span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.latex.recipe.default&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;first&#34;</span>,
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// --------------------- 辅助功能 ---------------------
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 保存时自动编译
+</span></span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.latex.autoBuild.run&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;onSave&#34;</span>,
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 编译后自动清理辅助文件（可选）不建议，我开了这个之后引用出错
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">//&#34;latex-workshop.latex.clean.fileTypes&#34;: [
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">//    &#34;*.aux&#34;, &#34;*.bbl&#34;, &#34;*.blg&#34;, &#34;*.idx&#34;, &#34;*.ind&#34;, 
+</span></span></span><span style="display:flex;"><span>     <span style="color:#75715e">//   &#34;*.lof&#34;, &#34;*.lot&#34;, &#34;*.out&#34;, &#34;*.toc&#34;, &#34;*.acn&#34;, 
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">///    &#34;*.acr&#34;, &#34;*.alg&#34;, &#34;*.glg&#34;, &#34;*.glo&#34;, &#34;*.gls&#34;, 
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">//    &#34;*.ist&#34;, &#34;*.fls&#34;, &#34;*.log&#34;, &#34;*.fdb_latexmk&#34;, 
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">//    &#34;*.synctex.gz&#34;
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">//],
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">//&#34;latex-workshop.latex.autoClean.run&#34;: &#34;onBuilt&#34;,
+</span></span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 启用反向搜索（PDF 点击跳转到代码）
+</span></span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.viewer.pdf.internal.port&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// --------------------- 显示配置 ---------------------
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 使用 VSCode 内置 PDF 查看器
+</span></span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.view.pdf.viewer&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;tab&#34;</span>,
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 显示编译日志
+</span></span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.message.showInfo&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.message.warning.show&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;latex-workshop.message.error.show&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>VSCode还有个LaTeX-utilitiess插件可以方便地导入图片，但是大小宽度还是要自己设置</p>
+<p>‍</p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%B0%E6%A8%A1/">数模</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本作品采用 CC BY-NC-SA 4.0 许可协议</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 弦鱼
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.3">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.8bfaa764922724e23244245ef6a5d6f59399d846a28627b88ace7f04608cc7c3.js" defer></script>
+
+
+    </body>
+</html>
